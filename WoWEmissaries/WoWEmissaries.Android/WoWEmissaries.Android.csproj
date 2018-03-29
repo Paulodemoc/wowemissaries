@@ -62,12 +62,6 @@
     <None Include="Assets\AboutAssets.txt" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\icon.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\icon.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\icon.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\icon.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -78,40 +72,51 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\xamarin_logo.png" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\WoWEmissaries\WoWEmissaries.csproj">
       <Project>{FE6B9B6C-F363-4FB7-9B28-84BEF1461500}</Project>
       <Name>WoWEmissaries</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\factions\dreamweavers.jpg" />
+    <AndroidResource Include="Resources\drawable\wardens.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\factions\highmountaintribes.jpg" />
+    <AndroidResource Include="Resources\drawable\argussianreach.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\factions\kirintor.jpg" />
+    <AndroidResource Include="Resources\drawable\armyofthelight.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\factions\nightfallen.jpg" />
+    <AndroidResource Include="Resources\drawable\bfa_logo.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\factions\valarjar.jpg" />
+    <AndroidResource Include="Resources\drawable\courtoffarondis.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\factions\wardens.jpg" />
+    <AndroidResource Include="Resources\drawable\dreamweavers.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\factions\argussianreach.jpg" />
+    <AndroidResource Include="Resources\drawable\highmountaintribes.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\factions\armyofthelight.jpg" />
+    <AndroidResource Include="Resources\drawable\kirintor.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\factions\courtoffarondis.jpg" />
+    <AndroidResource Include="Resources\drawable\legion_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\nightfallen.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\valarjar.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\icon.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\drawable-hdpi\" />
+    <Folder Include="Resources\drawable-xhdpi\" />
+    <Folder Include="Resources\drawable-xxhdpi\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

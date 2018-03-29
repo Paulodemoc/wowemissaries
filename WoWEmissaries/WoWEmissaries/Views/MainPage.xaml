@@ -2,17 +2,29 @@
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             xmlns:views="clr-namespace:WoWEmissaries.Views"
-            x:Class="WoWEmissaries.Views.MainPage">
+            x:Class="WoWEmissaries.Views.MainPage" >
     <TabbedPage.Children>
-        <NavigationPage Title="Browse">
+        <!--<Page Title="Legion">
             <NavigationPage.Icon>
                 <OnPlatform x:TypeArguments="FileImageSource">
-                    <On Platform="iOS" Value="tab_feed.png"/>
+                    <On Platform="iOS" Value="legion_logo.png"/>
+                    <On Platform="Android" Value="legion_logo.png"/>
                 </OnPlatform>
             </NavigationPage.Icon>
             <x:Arguments>
                 <views:LegionFactions />
             </x:Arguments>
-        </NavigationPage>
+        </Page>
+        <Page Title="BfA">
+            <NavigationPage.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="iOS" Value="bfa_logo.png"/>
+                    <On Platform="Android" Value="bfa_logo.png"/>
+                </OnPlatform>
+            </NavigationPage.Icon>
+            <x:Arguments>
+                <views:BfAFactions />
+            </x:Arguments>
+        </Page>-->
     </TabbedPage.Children>
 </TabbedPage>

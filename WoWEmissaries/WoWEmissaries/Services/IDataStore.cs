@@ -10,6 +10,6 @@ namespace WoWEmissaries.Services
         Task<bool> UpdateFactionAsync(T faction);
         Task<bool> DeleteFactionAsync(T faction);
         Task<T> GetFactionAsync(string id);
-        Task<IEnumerable<T>> GetFactionsAsync(bool forceRefresh = false);
+        Task<IEnumerable<T>> GetFactionsAsync(string xpac, bool forceRefresh = false);
     }
 }

@@ -6,19 +6,8 @@ namespace WoWEmissaries.Models
 {
   public class Faction
   {
-    public string Name;
-    public string Icon;
-
-    public Faction(string name, string icon)
-    {
-      Name = name;
-      Icon = icon;
-    }
-
-    public Faction()
-    {
-      Name = "";
-      Icon = "";
-    }
+    public string Name { get; set; }
+    public string Icon { get; set; }
+    public string Expansion { get; set; }
   }
 }

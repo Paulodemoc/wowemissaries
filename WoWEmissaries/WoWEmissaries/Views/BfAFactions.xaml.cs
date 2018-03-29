@@ -14,17 +14,17 @@ using WoWEmissaries.ViewModels;
 namespace WoWEmissaries.Views
 {
   [XamlCompilation(XamlCompilationOptions.Compile)]
-  public partial class LegionFactions : ContentPage
+  public partial class BfAFactions : ContentPage
   {
     FactionsViewModel viewModel;
 
-    public LegionFactions()
+    public BfAFactions()
     {
       InitializeComponent();
 
       BindingContext = viewModel = new FactionsViewModel();
-      viewModel.Xpac = "Legion";
-      viewModel.Title = "Legion";
+      viewModel.Xpac = "BFA";
+      viewModel.Title = "Battle for Azeroth";
     }
 
     async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
@@ -35,11 +35,6 @@ namespace WoWEmissaries.Views
 
       // Manually deselect item.
       FactionsListView.SelectedItem = null;
-    }
-
-    async void ToggleFaction(object sender, ToggledEventArgs e)
-    {
-
     }
 
     protected override void OnAppearing()

@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="WoWEmissaries.Views.LegionFactions"
+             x:Class="WoWEmissaries.Views.BfAFactions"
              Title="{Binding Title}"
-             x:Name="LegionFactionsPage">
+             x:Name="BfAFactionsPage">
     <ContentPage.Content>
         <StackLayout>
             <ListView x:Name="FactionsListView" 
@@ -18,12 +18,11 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Padding="10, 5, 10, 5" Spacing="0" Orientation="Horizontal" HorizontalOptions="Fill">
-                                <Image Source="{Binding Icon}" HorizontalOptions="Start"/>
+                            <StackLayout Padding="10, 5, 10, 5" Spacing="0" Orientation="Horizontal" HorizontalOptions="StartAndExpand" >
+                                <Image Source="{Binding Icon}" />
                                 <Label Text="{Binding Name}" VerticalTextAlignment="Center" LineBreakMode="NoWrap" TextColor="Black" 
-                                       FontSize="16" Style="{DynamicResource ListItemTextStyle}"  HorizontalOptions="CenterAndExpand"
-                                       Margin="10, 0, 0, 0" />
-                                <Switch HorizontalOptions="End" Toggled="ToggleFaction" x:Name="{Binding Name, StringFormat='toggle_{0}'}" />
+                                       FontSize="16" Style="{DynamicResource ListItemTextStyle}"  HorizontalOptions="StartAndExpand"
+                                       Margin="10, 0, 0, 0"/>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>

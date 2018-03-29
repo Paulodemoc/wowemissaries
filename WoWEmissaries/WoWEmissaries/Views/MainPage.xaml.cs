@@ -5,12 +5,12 @@ using Xamarin.Forms.Xaml;
 
 namespace WoWEmissaries.Views
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class MainPage : TabbedPage
-	{
-		public MainPage ()
-		{
-			InitializeComponent ();
-		}
-	}
+  [XamlCompilation(XamlCompilationOptions.Compile)]
+  public partial class MainPage : TabbedPage
+  {
+    public MainPage()
+    {
+      InitializeComponent();
+    }
+  }
 }

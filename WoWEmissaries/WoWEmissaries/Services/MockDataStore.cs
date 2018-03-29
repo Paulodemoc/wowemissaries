@@ -16,15 +16,16 @@ namespace WoWEmissaries.Services
     {
       factions = new List<Faction>
       {
-        new Faction { Name = "Argussian Reach", Icon="argussianreach.jpg" },
-        new Faction { Name = "Army of the Light", Icon="armyofthelight.jpg" },
-        new Faction { Name = "Court of Farondis", Icon="courtoffarondis.jpg" },
-        new Faction { Name = "Dreamweavers", Icon="dreamweavers.jpg" },
-        new Faction { Name = "Highmountain Tribes", Icon="highmountaintribes.jpg" },
-        new Faction { Name = "Kirin Tor", Icon="kirintor.jpg" },
-        new Faction { Name = "Nightfallen", Icon="nightfallen.jpg" },
-        new Faction { Name = "Valarjar", Icon="valarjar.jpg" },
-        new Faction { Name = "Wardens", Icon="wardens.jpg" },
+        new Faction { Name = "Argussian Reach", Icon="argussianreach.jpg", Expansion="Legion" },
+        new Faction { Name = "Army of the Light", Icon="armyofthelight.jpg", Expansion="Legion" },
+        new Faction { Name = "Court of Farondis", Icon="courtoffarondis.jpg", Expansion="Legion" },
+        new Faction { Name = "Dreamweavers", Icon="dreamweavers.jpg", Expansion="Legion" },
+        new Faction { Name = "Highmountain Tribes", Icon="highmountaintribes.jpg", Expansion="Legion" },
+        new Faction { Name = "Kirin Tor", Icon="kirintor.jpg", Expansion="Legion" },
+        new Faction { Name = "Nightfallen", Icon="nightfallen.jpg", Expansion="Legion" },
+        new Faction { Name = "Valarjar", Icon="valarjar.jpg", Expansion="Legion" },
+        new Faction { Name = "Wardens", Icon="wardens.jpg", Expansion="Legion" },
+        new Faction { Name = "Teste", Icon="icon.jpg", Expansion="BFA" },
       };
     }
 
@@ -57,9 +58,9 @@ namespace WoWEmissaries.Services
       return await Task.FromResult(factions.FirstOrDefault(s => s.Name == name));
     }
 
-    public async Task<IEnumerable<Faction>> GetFactionsAsync(bool forceRefresh = false)
+    public async Task<IEnumerable<Faction>> GetFactionsAsync(string xpac, bool forceRefresh = false)
     {
-      return await Task.FromResult(factions);
+      return await Task.FromResult(factions.Where(x => x.Expansion.Equals(xpac)).ToList<Faction>());
     }
   }
 }

@@ -11,7 +11,7 @@ namespace WoWEmissaries
     public App()
     {
       InitializeComponent();
-      MainPage = new MainPage();
+      MainPage = new Main();
     }
 
     protected override void OnStart()
