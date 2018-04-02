@@ -14,16 +14,20 @@
                  IsPullToRefreshEnabled="true"
                  IsRefreshing="{Binding IsBusy, Mode=OneWay}"
                  CachingStrategy="RecycleElement"
-                 ItemSelected="OnItemSelected">
+                 ItemSelected="ItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout Padding="10, 5, 10, 5" Spacing="0" Orientation="Horizontal" HorizontalOptions="Fill">
                                 <Image Source="{Binding Icon}" HorizontalOptions="Start"/>
-                                <Label Text="{Binding Name}" VerticalTextAlignment="Center" LineBreakMode="NoWrap" TextColor="Black" 
+                                <StackLayout HorizontalOptions="CenterAndExpand">
+                                    <Label Text="{Binding Name}" VerticalTextAlignment="Center" LineBreakMode="NoWrap" 
                                        FontSize="16" Style="{DynamicResource ListItemTextStyle}"  HorizontalOptions="CenterAndExpand"
-                                       Margin="10, 0, 0, 0" />
-                                <Switch HorizontalOptions="End" Toggled="ToggleFaction" x:Name="{Binding Name, StringFormat='toggle_{0}'}" />
+                                       />
+                                    <Label Text="{Binding ExpireOn, StringFormat='{0:MM/dd/yy}'}" VerticalTextAlignment="Center" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" FontSize="13"
+                                       HorizontalOptions="CenterAndExpand" IsVisible="{Binding ShowExpiration}"/>
+                                </StackLayout>
+                                <Switch HorizontalOptions="End" IsToggled="{Binding Tracked, Mode=TwoWay}" Toggled="TrackFaction" />
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>

@@ -13,36 +13,36 @@ using WoWEmissaries.ViewModels;
 
 namespace WoWEmissaries.Views
 {
-  [XamlCompilation(XamlCompilationOptions.Compile)]
-  public partial class BfAFactions : ContentPage
-  {
-    FactionsViewModel viewModel;
-
-    public BfAFactions()
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class BfAFactions : ContentPage
     {
-      InitializeComponent();
+        FactionsViewModel viewModel;
 
-      BindingContext = viewModel = new FactionsViewModel();
-      viewModel.Xpac = "BFA";
-      viewModel.Title = "Battle for Azeroth";
+        public BfAFactions()
+        {
+            InitializeComponent();
+
+            BindingContext = viewModel = new FactionsViewModel();
+            viewModel.Xpac = "BFA";
+            viewModel.Title = "Battle for Azeroth";
+        }
+
+        async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
+        {
+            var item = args.SelectedItem as Faction;
+            if (item == null)
+                return;
+
+            // Manually deselect item.
+            FactionsListView.SelectedItem = null;
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            if (viewModel.Factions.Count == 0)
+                viewModel.LoadFactionsCommand.Execute(null);
+        }
     }
-
-    async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
-    {
-      var item = args.SelectedItem as Faction;
-      if (item == null)
-        return;
-
-      // Manually deselect item.
-      FactionsListView.SelectedItem = null;
-    }
-
-    protected override void OnAppearing()
-    {
-      base.OnAppearing();
-
-      if (viewModel.Factions.Count == 0)
-        viewModel.LoadFactionsCommand.Execute(null);
-    }
-  }
 }

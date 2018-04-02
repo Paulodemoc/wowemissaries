@@ -13,41 +13,37 @@ using WoWEmissaries.ViewModels;
 
 namespace WoWEmissaries.Views
 {
-  [XamlCompilation(XamlCompilationOptions.Compile)]
-  public partial class LegionFactions : ContentPage
-  {
-    FactionsViewModel viewModel;
-
-    public LegionFactions()
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class LegionFactions : ContentPage
     {
-      InitializeComponent();
+        FactionsViewModel viewModel;
 
-      BindingContext = viewModel = new FactionsViewModel();
-      viewModel.Xpac = "Legion";
-      viewModel.Title = "Legion";
+        public LegionFactions()
+        {
+            InitializeComponent();
+
+            BindingContext = viewModel = new FactionsViewModel();
+            viewModel.Xpac = "Legion";
+            viewModel.Title = "Legion";
+        }
+
+        async void ItemSelected(object sender, SelectedItemChangedEventArgs args)
+        {
+            FactionsListView.SelectedItem = null;
+
+        }
+
+        async void TrackFaction(object sender, ToggledEventArgs e)
+        {
+            viewModel.TrackFactionsCommand.Execute(null);
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            if (viewModel.Factions.Count == 0)
+                viewModel.LoadFactionsCommand.Execute(null);
+        }
     }
-
-    async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
-    {
-      var item = args.SelectedItem as Faction;
-      if (item == null)
-        return;
-
-      // Manually deselect item.
-      FactionsListView.SelectedItem = null;
-    }
-
-    async void ToggleFaction(object sender, ToggledEventArgs e)
-    {
-
-    }
-
-    protected override void OnAppearing()
-    {
-      base.OnAppearing();
-
-      if (viewModel.Factions.Count == 0)
-        viewModel.LoadFactionsCommand.Execute(null);
-    }
-  }
 }

@@ -9,28 +9,28 @@ using Xamarin.Forms.Xaml;
 
 namespace WoWEmissaries.Views
 {
-  [XamlCompilation(XamlCompilationOptions.Compile)]
-  public partial class Main : MasterDetailPage
-  {
-    public Main()
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class Main : MasterDetailPage
     {
-      InitializeComponent();
-      MasterPage.ListView.ItemSelected += ListView_ItemSelected;
+        public Main()
+        {
+            InitializeComponent();
+            MasterPage.ListView.ItemSelected += ListView_ItemSelected;
+        }
+
+        private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            var item = e.SelectedItem as MainMenuItem;
+            if (item == null)
+                return;
+
+            var page = (Page)Activator.CreateInstance(item.TargetType);
+            page.Title = item.Title;
+
+            Detail = new NavigationPage(page);
+            IsPresented = false;
+
+            MasterPage.ListView.SelectedItem = null;
+        }
     }
-
-    private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-    {
-      var item = e.SelectedItem as MainMenuItem;
-      if (item == null)
-        return;
-
-      var page = (Page)Activator.CreateInstance(item.TargetType);
-      page.Title = item.Title;
-
-      Detail = new NavigationPage(page);
-      IsPresented = false;
-
-      MasterPage.ListView.SelectedItem = null;
-    }
-  }
 }

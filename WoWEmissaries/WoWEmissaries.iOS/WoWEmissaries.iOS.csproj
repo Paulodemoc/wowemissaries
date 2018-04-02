@@ -155,31 +155,43 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\factions\dreamweavers.jpg" />
+    <BundleResource Include="Resources\argussianreach.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\factions\highmountaintribes.jpg" />
+    <BundleResource Include="Resources\armiesoflegionfall.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\factions\kirintor.jpg" />
+    <BundleResource Include="Resources\armyofthelight.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\factions\nightfallen.jpg" />
+    <BundleResource Include="Resources\bfa_logo.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\factions\valarjar.jpg" />
+    <BundleResource Include="Resources\courtoffarondis.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\factions\wardens.jpg" />
+    <BundleResource Include="Resources\dreamweavers.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\factions\argussianreach.jpg" />
+    <BundleResource Include="Resources\highmountaintribes.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\factions\armyofthelight.jpg" />
+    <BundleResource Include="Resources\icon.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\factions\courtoffarondis.jpg" />
+    <BundleResource Include="Resources\kirintor.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\legion_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\nightfallen.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\valarjar.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\wardens.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

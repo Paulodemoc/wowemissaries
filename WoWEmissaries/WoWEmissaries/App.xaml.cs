@@ -5,28 +5,28 @@ using Xamarin.Forms;
 
 namespace WoWEmissaries
 {
-  public partial class App : Application
-  {
-
-    public App()
+    public partial class App : Application
     {
-      InitializeComponent();
-      MainPage = new Main();
-    }
 
-    protected override void OnStart()
-    {
-      // Handle when your app starts
-    }
+        public App()
+        {
+            InitializeComponent();
+            MainPage = new Main();
+        }
 
-    protected override void OnSleep()
-    {
-      // Handle when your app sleeps
-    }
+        protected override void OnStart()
+        {
+            // Handle when your app starts
+        }
 
-    protected override void OnResume()
-    {
-      // Handle when your app resumes
+        protected override void OnSleep()
+        {
+            // Handle when your app sleeps
+        }
+
+        protected override void OnResume()
+        {
+            // Handle when your app resumes
+        }
     }
-  }
 }

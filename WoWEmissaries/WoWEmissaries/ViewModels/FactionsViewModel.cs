@@ -10,43 +10,60 @@ using WoWEmissaries.Views;
 
 namespace WoWEmissaries.ViewModels
 {
-  public class FactionsViewModel : BaseViewModel
-  {
-    public ObservableCollection<Faction> Factions { get; set; }
-    public Command LoadFactionsCommand { get; set; }
-    public string Xpac { get; set; }
-
-    public FactionsViewModel()
+    public class FactionsViewModel : BaseViewModel
     {
-      Title = "Factions";
-      Factions = new ObservableCollection<Faction>();
-      LoadFactionsCommand = new Command(async () => await ExecuteLoadFactionsCommand(Xpac));
-    }
+        public ObservableCollection<Faction> Factions { get; set; }
+        public Command LoadFactionsCommand { get; set; }
+        public Command TrackFactionsCommand { get; set; }
+        public string Xpac { get; set; }
 
-    async Task ExecuteLoadFactionsCommand(string xpac)
-    {
-      if (IsBusy)
-        return;
-
-      IsBusy = true;
-
-      try
-      {
-        Factions.Clear();
-        var items = await DataStore.GetFactionsAsync(xpac, true);
-        foreach (var item in items)
+        public FactionsViewModel()
         {
-          Factions.Add(item);
+            Title = "Factions";
+            Factions = new ObservableCollection<Faction>();
+            LoadFactionsCommand = new Command(async () => await ExecuteLoadFactionsCommand(Xpac));
+            TrackFactionsCommand = new Command(async () => await TrackFaction());
         }
-      }
-      catch (Exception ex)
-      {
-        Debug.WriteLine(ex);
-      }
-      finally
-      {
-        IsBusy = false;
-      }
+
+        async Task ExecuteLoadFactionsCommand(string xpac)
+        {
+            if (IsBusy)
+                return;
+
+            IsBusy = true;
+
+            try
+            {
+                Factions.Clear();
+                var items = await DataStore.GetFactionsAsync(xpac, true);
+                foreach (var item in items)
+                {
+                    Factions.Add(item);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        async Task TrackFaction()
+        {
+            try
+            {
+                await DataStore.UpdateFactionAsync();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+            finally
+            {
+            }
+        }
     }
-  }
 }

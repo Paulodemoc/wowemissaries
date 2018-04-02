@@ -6,6 +6,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Plugin.LocalNotifications;
 
 namespace WoWEmissaries.Droid
 {
@@ -16,10 +17,12 @@ namespace WoWEmissaries.Droid
         {
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
+            LocalNotificationsImplementation.NotificationIconId = Resource.Drawable.legion_logo;
 
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
+
             LoadApplication(new App());
         }
     }

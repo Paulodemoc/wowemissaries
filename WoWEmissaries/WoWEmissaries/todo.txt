@@ -1,0 +1,2 @@
+﻿todo:Add settings to only use wifi and disable notifications
+todo:Implement background service to check wowhead once per day until new info is found
