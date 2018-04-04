@@ -15,13 +15,13 @@ namespace WoWEmissaries.Services
 {
   public class MockDataStore : IDataStore<Faction>
   {
-    static List<Faction> factions = new List<Faction>{
+    static public List<Faction> factions = new List<Faction>{
                 new Faction { Name = "Argussian Reach", Icon="argussianreach.jpg", Expansion="Legion", Tracked=false, ExpireOn=DateTime.MinValue },
                 new Faction { Name = "Army of the Light", Icon="armyofthelight.jpg", Expansion="Legion", Tracked=false, ExpireOn=DateTime.MinValue },
                 new Faction { Name = "Court of Farondis", Icon="courtoffarondis.jpg", Expansion="Legion", Tracked=false, ExpireOn=DateTime.MinValue },
                 new Faction { Name = "The Dreamweavers", Icon="dreamweavers.jpg", Expansion="Legion", Tracked=false, ExpireOn=DateTime.MinValue },
                 new Faction { Name = "Highmountain Tribes", Icon="highmountaintribes.jpg", Expansion="Legion", Tracked=false, ExpireOn=DateTime.MinValue },
-                new Faction { Name = "The Kirin Tor", Icon="kirintor.jpg", Expansion="Legion", Tracked=false, ExpireOn=DateTime.MinValue },
+                new Faction { Name = "The Kirin Tor of Dalaran", Icon="kirintor.jpg", Expansion="Legion", Tracked=false, ExpireOn=DateTime.MinValue },
                 new Faction { Name = "Nightfallen", Icon="nightfallen.jpg", Expansion="Legion", Tracked=false, ExpireOn=DateTime.MinValue },
                 new Faction { Name = "The Valarjar", Icon="valarjar.jpg", Expansion="Legion", Tracked=false, ExpireOn=DateTime.MinValue },
                 new Faction { Name = "The Wardens", Icon="wardens.jpg", Expansion="Legion", Tracked=false, ExpireOn=DateTime.MinValue },
@@ -44,8 +44,6 @@ namespace WoWEmissaries.Services
     {
       if (!Initialized)
         await ReadLocalData();
-      if (factions.Where(f => f.ExpireOn != DateTime.MinValue).Count() < 3)
-        CheckWowhead();
       SortFactions();
       return await Task.FromResult(factions.Where(x => x.Expansion.Equals(xpac)).ToList<Faction>());
     }
@@ -81,12 +79,10 @@ namespace WoWEmissaries.Services
       Initialized = true;
     }
 
-    private void CheckWowhead()
+    public void UpdateEmissaries(Dictionary<string, DateTime> activeOnes)
     {
       try
       {
-        WowheadParse parser = new WowheadParse();
-        Dictionary<string, DateTime> activeOnes = parser.GetEmissaries();
         foreach (KeyValuePair<string, DateTime> active in activeOnes)
         {
           Faction faction = factions.First(f => f.Name.Equals(active.Key));
@@ -147,8 +143,24 @@ namespace WoWEmissaries.Services
     {
       factions.Sort(delegate (Faction x, Faction y)
       {
-        if (y.ExpireOn != DateTime.MinValue && y.ExpireOn < x.ExpireOn) return 1;
-        else if (x.ExpireOn != DateTime.MinValue && x.ExpireOn < y.ExpireOn) return -1;
+        if (y.ExpireOn != DateTime.MinValue)
+        {
+          if (x.ExpireOn != DateTime.MinValue)
+          {
+            if (y.ExpireOn < x.ExpireOn) return 1;
+            else return -1;
+          }
+          else return 1;
+        }
+        else if (x.ExpireOn != DateTime.MinValue)
+        {
+          if (y.ExpireOn != DateTime.MinValue)
+          {
+            if (x.ExpireOn < y.ExpireOn) return -1;
+            else return 1;
+          }
+          else return -1;
+        }
         else return x.Name.CompareTo(y.Name);
       });
     }
