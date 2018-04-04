@@ -36,6 +36,14 @@ namespace WoWEmissaries.Droid.Services
         {
           Device.StartTimer(new TimeSpan(0, 10, 0), () =>
             {
+              //proceed only if connected to the internet
+              if (!Plugin.Connectivity.CrossConnectivity.Current.IsConnected) return true;
+
+              //proceed only if connected to wifi
+              if (!Plugin.Connectivity.CrossConnectivity.Current.ConnectionTypes.Contains(Plugin.Connectivity.Abstractions.ConnectionType.WiFi))
+                return true;
+              //todo: add settings page with an option to update status only on wifi
+
               if (MockDataStore.factions.Where(f => f.ExpireOn != DateTime.MinValue).Count() < 3)
               {
                 using (WowheadParse parser = new WowheadParse())
