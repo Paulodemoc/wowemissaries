@@ -107,11 +107,17 @@ namespace WoWEmissaries.Services
 
     private void Notificate()
     {
-      List<Faction> toNotificate = factions.Where(f => f.Notificate).ToList();
-      foreach (Faction faction in toNotificate)
+      bool notificate = true;
+      if (Xamarin.Forms.Application.Current.Properties.ContainsKey("notificate"))
+        bool.TryParse(Xamarin.Forms.Application.Current.Properties["notificate"].ToString(), out notificate);
+      if (notificate)
       {
-        CrossLocalNotifications.Current.Show("New Emisssary", faction.Name);
-        faction.Notificate = false;
+        List<Faction> toNotificate = factions.Where(f => f.Notificate).ToList();
+        foreach (Faction faction in toNotificate)
+        {
+          CrossLocalNotifications.Current.Show("New Emisssary", faction.Name);
+          faction.Notificate = false;
+        }
       }
     }
 

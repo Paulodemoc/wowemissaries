@@ -10,6 +10,10 @@
                 <Label Text="Update on Wi-Fi only" FontSize="Medium" HorizontalOptions="StartAndExpand" />
                 <Switch x:Name="WifiOnly" Toggled="UpdateSettings" HorizontalOptions="End" />
             </StackLayout>
+            <StackLayout Orientation="Horizontal" Padding="15">
+                <Label Text="Disable Notifications" FontSize="Medium" HorizontalOptions="StartAndExpand" />
+                <Switch x:Name="Notificate" Toggled="UpdateSettings" HorizontalOptions="End" />
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

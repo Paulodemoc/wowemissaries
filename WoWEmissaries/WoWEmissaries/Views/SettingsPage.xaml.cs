@@ -18,17 +18,29 @@ namespace WoWEmissaries.Views
   [XamlCompilation(XamlCompilationOptions.Compile)]
   public partial class SettingsPage : ContentPage
   {
+    bool wifi;
+    bool notificate;
+
     public SettingsPage()
     {
+      wifi = false;
+      notificate = true;
+
       InitializeComponent();
       if (Application.Current.Properties.ContainsKey("wifionly"))
-        WifiOnly.IsToggled = (bool)Application.Current.Properties["wifionly"];
+        wifi = (bool)Application.Current.Properties["wifionly"];
+      if (Application.Current.Properties.ContainsKey("notificate"))
+        notificate = (bool)Application.Current.Properties["notificate"];
+
+      WifiOnly.IsToggled = wifi;
+      Notificate.IsToggled = notificate;
     }
 
     private async void UpdateSettings(object sender, ToggledEventArgs e)
     {
       Application.Current.Properties["wifionly"] = WifiOnly.IsToggled;
-      Application.Current.SavePropertiesAsync();
+      Application.Current.Properties["notificate"] = Notificate.IsToggled;
+      await Application.Current.SavePropertiesAsync();
     }
   }
 }
