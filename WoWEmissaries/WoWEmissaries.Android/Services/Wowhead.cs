@@ -34,30 +34,11 @@ namespace WoWEmissaries.Droid.Services
       {
         try
         {
+          RunParser();
           Device.StartTimer(new TimeSpan(0, 10, 0), () =>
-            {
-              //proceed only if connected to the internet
-              if (!Plugin.Connectivity.CrossConnectivity.Current.IsConnected) return true;
-
-              //proceed only if connected to wifi
-              if (!Plugin.Connectivity.CrossConnectivity.Current.ConnectionTypes.Contains(Plugin.Connectivity.Abstractions.ConnectionType.WiFi))
-                return true;
-              //todo: add settings page with an option to update status only on wifi
-
-              if (MockDataStore.factions.Where(f => f.ExpireOn != DateTime.MinValue).Count() < 3)
-              {
-                using (WowheadParse parser = new WowheadParse())
-                {
-                  parser.GetEmissaries(_cts.Token).Wait();
-                }
-              }
-
-              if (MockDataStore.factions.Where(f => f.ExpireOn.Date == DateTime.Now.Date).Count() == 0 &&
-                MockDataStore.factions.Where(f => f.ExpireOn.Date != DateTime.MinValue).Count() > 2)
-                return false;
-              else
-                return true;
-            });
+          {
+            return RunParser();
+          });
         }
         catch (Android.OS.OperationCanceledException)
         {
@@ -75,6 +56,23 @@ namespace WoWEmissaries.Droid.Services
       }, _cts.Token);
 
       return StartCommandResult.Sticky;
+    }
+
+    private bool RunParser()
+    {
+      if (MockDataStore.factions.Where(f => f.ExpireOn != DateTime.MinValue).Count() < 3)
+      {
+        using (WowheadParse parser = new WowheadParse())
+        {
+          parser.GetEmissaries(_cts.Token).Wait();
+        }
+      }
+
+      if (MockDataStore.factions.Where(f => f.ExpireOn.Date == DateTime.Now.Date).Count() == 0 &&
+        MockDataStore.factions.Where(f => f.ExpireOn.Date != DateTime.MinValue).Count() > 2)
+        return false;
+      else
+        return true;
     }
 
     public override void OnDestroy()

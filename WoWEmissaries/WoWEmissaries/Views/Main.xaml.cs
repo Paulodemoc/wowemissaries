@@ -14,13 +14,26 @@ namespace WoWEmissaries.Views
   [XamlCompilation(XamlCompilationOptions.Compile)]
   public partial class Main : MasterDetailPage
   {
+    ToolbarItem settings;
+
     public Main()
     {
       InitializeComponent();
       MasterPage.ListView.ItemSelected += ListView_ItemSelected;
 
+      settings = new ToolbarItem
+      {
+        Icon = "settingsico.png",
+        Name = "Settings",
+        Command = new Command(this.ShowSettingsPage),
+      };
+
+      this.ToolbarItems.Add(settings);
+
       //only start the service is there is outdated emissaries
-      if (MockDataStore.factions.Where(f => f.ExpireOn.Date <= DateTime.Now.Date).Count() > 0)
+      if ((MockDataStore.factions.Where(f => f.ExpireOn != DateTime.MinValue).Count() > 0 //there are active emissaries
+          && MockDataStore.factions.Where(f => f.ExpireOn.Date <= DateTime.Now.Date && f.ExpireOn != DateTime.MinValue).Count() > 0) //some are expiring or expired
+        || (MockDataStore.factions.Where(f => f.ExpireOn != DateTime.MinValue).Count() == 0)) //there are no active emissaries
         MessagingCenter.Send(new StartWowheadParse(), "StartWowheadParse");
 
       MessagingCenter.Subscribe<CancelledMessage>(this, "CancelledMessage", message =>
@@ -28,21 +41,6 @@ namespace WoWEmissaries.Views
         Device.BeginInvokeOnMainThread(() =>
         {
           MessagingCenter.Send(new StopWowheadParse(), "StopWowheadParse");
-        });
-      });
-
-      MessagingCenter.Subscribe<ActiveEmissariesMessage>(this, "ActiveEmissariesMessage", message =>
-      {
-        Device.BeginInvokeOnMainThread(() =>
-        {
-          MockDataStore dataStore = new MockDataStore();
-          dataStore.UpdateEmissaries(message.ActiveEmissaries);
-          //if you already have the next 3 emissaries active and none is expiring today, finish the service
-          if (MockDataStore.factions.Where(f => f.ExpireOn.Date == DateTime.Now.Date).Count() == 0 &&
-              MockDataStore.factions.Where(f => f.ExpireOn.Date != DateTime.MinValue).Count() > 2)
-          {
-            MessagingCenter.Send(new StopWowheadParse(), "StopWowheadParse");
-          }
         });
       });
     }
@@ -60,6 +58,16 @@ namespace WoWEmissaries.Views
       IsPresented = false;
 
       MasterPage.ListView.SelectedItem = null;
+      if (this.ToolbarItems.Count == 0)
+        this.ToolbarItems.Add(settings);
+    }
+
+    private void ShowSettingsPage()
+    {
+      var page = (Page)Activator.CreateInstance(typeof(SettingsPage));
+      Detail = new NavigationPage(page);
+      IsPresented = false;
+      this.ToolbarItems.Clear();
     }
   }
 }
