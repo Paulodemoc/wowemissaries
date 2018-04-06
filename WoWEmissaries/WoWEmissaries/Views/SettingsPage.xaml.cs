@@ -33,13 +33,13 @@ namespace WoWEmissaries.Views
         notificate = (bool)Application.Current.Properties["notificate"];
 
       WifiOnly.IsToggled = wifi;
-      Notificate.IsToggled = notificate;
+      Notificate.IsToggled = !notificate;
     }
 
     private async void UpdateSettings(object sender, ToggledEventArgs e)
     {
       Application.Current.Properties["wifionly"] = WifiOnly.IsToggled;
-      Application.Current.Properties["notificate"] = Notificate.IsToggled;
+      Application.Current.Properties["notificate"] = !Notificate.IsToggled;
       await Application.Current.SavePropertiesAsync();
     }
   }
