@@ -16,74 +16,74 @@ using Xamarin.Forms;
 
 namespace WoWEmissaries.Droid.Services
 {
-  [Service]
-  public class Wowhead : Service
-  {
-    CancellationTokenSource _cts;
-
-    public override IBinder OnBind(Intent intent)
+    [Service]
+    public class Wowhead : Service
     {
-      return null;
-    }
+        CancellationTokenSource _cts;
 
-    public override StartCommandResult OnStartCommand(Intent intent, StartCommandFlags flags, int startId)
-    {
-      _cts = new CancellationTokenSource();
-
-      Task.Run(() =>
-      {
-        try
+        public override IBinder OnBind(Intent intent)
         {
-          RunParser();
-          Device.StartTimer(new TimeSpan(0, 10, 0), () =>
-          {
-            return RunParser();
-          });
-        }
-        catch (Android.OS.OperationCanceledException)
-        {
-        }
-        finally
-        {
-          if (_cts.IsCancellationRequested)
-          {
-            Device.BeginInvokeOnMainThread(
-              () => MessagingCenter.Send(new CancelledMessage(), "CancelledMessage")
-            );
-          }
+            return null;
         }
 
-      }, _cts.Token);
-
-      return StartCommandResult.Sticky;
-    }
-
-    private bool RunParser()
-    {
-      if (MockDataStore.factions.Where(f => f.ExpireOn != DateTime.MinValue).Count() < 3)
-      {
-        using (WowheadParse parser = new WowheadParse())
+        public override StartCommandResult OnStartCommand(Intent intent, StartCommandFlags flags, int startId)
         {
-          parser.GetEmissaries(_cts.Token).Wait();
+            _cts = new CancellationTokenSource();
+
+            Task.Run(() =>
+            {
+                try
+                {
+                    RunParser();
+                    Device.StartTimer(new TimeSpan(0, 10, 0), () =>
+              {
+                    return RunParser();
+                });
+                }
+                catch (Android.OS.OperationCanceledException)
+                {
+                }
+                finally
+                {
+                    if (_cts.IsCancellationRequested)
+                    {
+                        Device.BeginInvokeOnMainThread(
+                    () => MessagingCenter.Send(new CancelledMessage(), "CancelledMessage")
+                  );
+                    }
+                }
+
+            }, _cts.Token);
+
+            return StartCommandResult.Sticky;
         }
-      }
 
-      if (MockDataStore.factions.Where(f => f.ExpireOn.Date == DateTime.Now.Date).Count() == 0 &&
-        MockDataStore.factions.Where(f => f.ExpireOn.Date != DateTime.MinValue).Count() > 2)
-        return false;
-      else
-        return true;
+        private bool RunParser()
+        {
+            if (MockDataStore.factions.Where(f => f.ExpireOn != DateTime.MinValue).Count() < 3)
+            {
+                using (WowheadParse parser = new WowheadParse())
+                {
+                    parser.GetEmissaries(_cts.Token).Wait();
+                }
+            }
+
+            //if (MockDataStore.factions.Where(f => f.ExpireOn.Date == DateTime.Now.Date).Count() == 0 &&
+            //  MockDataStore.factions.Where(f => f.ExpireOn.Date != DateTime.MinValue).Count() > 2)
+            //  return false;
+            //else
+            return true;
+        }
+
+        public override void OnDestroy()
+        {
+            if (_cts != null)
+            {
+                _cts.Token.ThrowIfCancellationRequested();
+
+                _cts.Cancel();
+            }
+            base.OnDestroy();
+        }
     }
-
-    public override void OnDestroy()
-    {
-      if (_cts != null)
-      {
-        _cts.Token.ThrowIfCancellationRequested();
-
-        _cts.Cancel();
-      }
-      base.OnDestroy();
-    }
-  }
 }

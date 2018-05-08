@@ -22,7 +22,7 @@ namespace WoWEmissaries.Services
                 new Faction { Name = "The Dreamweavers", Icon="dreamweavers.jpg", Expansion="Legion", Tracked=false, ExpireOn=DateTime.MinValue },
                 new Faction { Name = "Highmountain Tribes", Icon="highmountaintribes.jpg", Expansion="Legion", Tracked=false, ExpireOn=DateTime.MinValue },
                 new Faction { Name = "The Kirin Tor of Dalaran", Icon="kirintor.jpg", Expansion="Legion", Tracked=false, ExpireOn=DateTime.MinValue },
-                new Faction { Name = "Nightfallen", Icon="nightfallen.jpg", Expansion="Legion", Tracked=false, ExpireOn=DateTime.MinValue },
+                new Faction { Name = "The Nightfallen", Icon="nightfallen.jpg", Expansion="Legion", Tracked=false, ExpireOn=DateTime.MinValue },
                 new Faction { Name = "The Valarjar", Icon="valarjar.jpg", Expansion="Legion", Tracked=false, ExpireOn=DateTime.MinValue },
                 new Faction { Name = "The Wardens", Icon="wardens.jpg", Expansion="Legion", Tracked=false, ExpireOn=DateTime.MinValue },
                 new Faction { Name = "Teste", Icon="icon.jpg", Expansion="BFA", Tracked=false, ExpireOn=DateTime.MinValue },
